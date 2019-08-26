@@ -28,14 +28,11 @@
           </form>
         </div>
       </div>
-      <div class="row">
-        <nuxt-link
-        to="/"
-        tag="a">Ana Sayfa</nuxt-link>
-      </div>
+     
     </div>
 </template>
 <script>
+import axios from "axios"
   export default {
     //middleware : "auth"
     data(){
@@ -49,7 +46,36 @@
     },
     methods : {
       onSubmit(){
-        console.log(this.user)
+        this.$store.dispatch("authUser",{
+          isUser: this.isUser,
+          user : this.user
+        })
+        .then(response=>{
+          this.$router.push("/")
+        })
+
+        /*
+        let authLink = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
+        if(this.isUser)
+        {
+          authLink= "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
+        }
+
+        axios.post(authLink + process.env.firebaseAPIKEY,
+        {email : this.user.email , password : this.user.password, returnSecureToken : true})
+        .then(response=>{
+          this.$store.dispatch("login","response.data.idToken")
+          this.$router.push("/")
+          //console.log(response)
+        })
+        */
+
+
+        // setTimeout(() => {
+        //   this.$store.dispatch("login","auth-key-form-firebase")
+        //   this.$router.push("/")
+        // }, 1000);
+        //console.log(this.user)
       }
     }
   }

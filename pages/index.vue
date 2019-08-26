@@ -30,10 +30,6 @@
         </div>
       </div>
     </div>
-  <nuxt-link
-  to="/auth"
-  tag="a">Login Formu</nuxt-link>
-  
   </div>
   
 </template>
@@ -43,6 +39,7 @@ import Cookie from "js-cookie"
   export default {
     //nuxtjJS e ait
     //middleware : "auth",
+    middleware : ["session-control","auth"],
     data() {
       return {
         storageValue : null,
@@ -55,15 +52,15 @@ import Cookie from "js-cookie"
     methods: {
       setValue() {
         //localStorage.setItem("key","nereden geleceği")
-        localStorage.setItem("autKey",this.storageValue)
+        localStorage.setItem("authKey",this.storageValue)
       },
       getValue() {
         //localStorage.getItem("neyi getireyim")
-        let autKey = localStorage.getItem("autKey")
-        this.fromStorage = autKey 
+         this.fromStorage = localStorage.getItem("authKey")
+         
       },
       deleteValue(){
-        localStorage.removeItem("autKey")
+        localStorage.removeItem("authKey")
       },
       setCookie(){
         //Cookie.set("autKey", this.cookieValue)
